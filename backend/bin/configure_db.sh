@@ -1,12 +1,12 @@
 #!/bin/bash
-export PGPASSWORD='node_password'
-echo "configuring dragonstack database..."
-dropdb -U node_user dragonstackdb
-createdb -U node_user dragonstackdb
+export PGPASSWORD='Myrk4382'
 
-psql -U node_user dragonstackdb < ./bin/sql/generation.sql
-psql -U node_user dragonstackdb < ./bin/sql/dragon.sql
+echo "configuring dragonstack database..."
+dropdb -U postgres postgres
+dropdb - U postgres dragonstackdb
+createdb -U postgres dragonstackdb
+
+psql.exe -U postgres dragonstackdb < ./bin/sql/generation.sql
+psql.exe -U postgres dragonstackdb < ./bin/sql/dragon.sql
 
 echo "dragonstackdb was configured successfully"
-echo press enter to exit
-$SHELL
