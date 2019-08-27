@@ -1,4 +1,4 @@
-const app = require('../default')
+const app = require('../index')
 const PORT = process.env.PORT || 4000
 
 
