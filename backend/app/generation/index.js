@@ -5,6 +5,7 @@ const Dragon = require('../dragon')
 class Generation {
   constructor() {
     this.expiration = this.calculateExpiration()
+    this.generationId = undefined
   }
 
   calculateExpiration(){

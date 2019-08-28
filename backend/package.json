@@ -5,7 +5,8 @@
   "main": "./bin/server.js",
   "scripts": {
     "start": "nodemon ./bin/server.js",
-    "configure": "./bin/configure_db.sh"
+    "configure": "./bin/configure_db.sh",
+    "configure-dev": "yarn configure && yarn start"
   },
   "keywords": [],
   "author": "",
