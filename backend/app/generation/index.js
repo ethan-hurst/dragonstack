@@ -1,30 +1,38 @@
-const { REFRESH_RATE, SECONDS } = require('../config')
-const refreshRate = REFRESH_RATE * SECONDS
-const Dragon = require('../dragon')
+const Dragon = require('../dragon');
+const { REFRESH_RATE, SECONDS } = require('../config');
+
+const refreshRate = REFRESH_RATE * SECONDS;
 
 class Generation {
   constructor() {
-    this.expiration = this.calculateExpiration()
-    this.generationId = undefined
+    this.accountIds = new Set();
+    this.expiration = this.calculateExpiration();
+    this.generationId = undefined;
   }
 
-  calculateExpiration(){
-    this.expiration = null
+  calculateExpiration() {
+    const expirationPeriod = Math.floor(Math.random() * (refreshRate/2));
 
-    const expirationPeriod = Math.floor(Math.random() * (refreshRate / 2))
     const msUntilExpiration = Math.random() < 0.5 ?
       refreshRate - expirationPeriod :
-      refreshRate + expirationPeriod
+      refreshRate + expirationPeriod;
 
-    return new Date(Date.now() + msUntilExpiration)
+    return new Date(Date.now() + msUntilExpiration);
   }
 
-  newDragon() {
-    if(Date.now() > this.expiration) { 
-      throw new Error(`This generation expired on ${this.expiration}`)
+  newDragon({ accountId }) {
+    if (Date.now() > this.expiration) {
+      throw new Error(`This generation expired on ${this.expiration}`);
     }
-    return new Dragon()
+
+    if (this.accountIds.has(accountId)) {
+      throw new Error('You already have a dragon from this generation');
+    }
+
+    this.accountIds.add(accountId);
+
+    return new Dragon({ generationId: this.generationId });
   }
 }
 
-module.exports = Generation
+module.exports = Generation;
